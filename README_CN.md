@@ -111,6 +111,21 @@ serena-cli --help
 
 ## 🎮 MCP 集成
 
+### 🚀 智能启动向导
+
+```bash
+# 启动智能 MCP 服务器向导（推荐）
+serena-cli start-mcp-server
+```
+
+**新功能：智能启动向导！**
+`start-mcp-server` 命令现在会启动智能向导，自动：
+- 🔍 检查您的环境
+- 📦 安装缺失的依赖（uv、uvx、pip）
+- 🎯 检测可用的 AI 编程工作台
+- ⚙️ 为所选平台配置 MCP 设置
+- ✅ 验证配置并提供使用指导
+
 ### 在 Cursor 中使用
 
 ```python

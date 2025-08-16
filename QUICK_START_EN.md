@@ -238,6 +238,67 @@ included_tools:
 EOF
 ```
 
+## 🚀 Start MCP Server
+
+```bash
+serena-cli start-mcp-server
+```
+
+**🚀 Brand New Intelligent Wizard:** Now automatically detects environment, installs dependencies, and configures target platforms!
+
+After startup, the intelligent wizard will:
+- 🔍 **Environment Check**: Check Python version and virtual environment
+- 📦 **Dependency Management**: Automatically install missing tools like uv, uvx, pip
+- 🎯 **Platform Selection**: Support Claude, Cursor, VSCode, traditional MCP servers
+- ⚙️ **Auto-Configuration**: Automatically configure MCP settings for the chosen platform
+- ✅ **Configuration Verification**: Verify if configuration is successful and provide usage guidance
+- 🌐 **Web Server**: Automatically start Serena Web server and open Dashboard
+
+**Expected Output:**
+```
+🚀 Serena CLI Intelligent MCP Server Startup Wizard
+==================================================
+🔍 Step 1: Environment Check...
+✅ Python version: 3.13.2
+✅ Virtual environment activated
+
+🔍 Step 2: Dependency Check...
+✅ uv installed
+✅ uvx installed
+✅ pip installed
+✅ All dependency checks passed!
+
+🔍 Step 3: Select Target Platform...
+Please select your target AI programming workbench:
+1. ✅ Claude - Official Serena integration (Recommended) ⭐
+2. ✅ Cursor - MCP protocol integration 💡
+3. ✅ Vscode - MCP protocol integration 💡
+4. ✅ Traditional - Standard MCP protocol 💡
+
+Please enter your choice (1-4): 1
+✅ Selected: Claude
+
+🔧 Step 4: Configure Claude...
+🤖 Configuring Claude Desktop...
+✅ Successfully added to Claude MCP!
+   Context: ide-assistant
+   Project: /Users/panda/Code/toy/AI/mylibs/panda-index-helper-mcp
+🔄 Please restart Claude to use new tools
+
+🔍 Step 5: Verify Claude Configuration...
+✅ Claude MCP configuration verification passed!
+
+📚 Step 6: Claude Usage Guide
+==================================================
+🤖 Claude Desktop Usage Instructions:
+1. Restart Claude Desktop
+2. Use in conversation: @mcp serena
+3. Enjoy 18 Serena tools!
+
+🎉 Configuration complete! You can now start using Serena!
+💡 If you have any issues, please check documentation or contact support
+```
+
 ## 🎉 Success Indicators
 
 When you see the following output, Serena CLI is working correctly:
@@ -247,6 +308,7 @@ When you see the following output, Serena CLI is working correctly:
 ✅ **Status query normal**: Displays detailed project status information  
 ✅ **Configuration management available**: Can edit and view configuration files  
 ✅ **Error handling complete**: Provides clear error information and solution suggestions  
+✅ **Intelligent MCP wizard startup successful**: Automatically detects environment, installs dependencies, configures platforms  
 
 ## 🚀 Next Steps
 

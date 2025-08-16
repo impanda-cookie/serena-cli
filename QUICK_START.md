@@ -238,6 +238,67 @@ included_tools:
 EOF
 ```
 
+## 🚀 启动 MCP 服务器
+
+```bash
+serena-cli start-mcp-server
+```
+
+**🚀 全新智能向导：** 现在会自动检测环境、安装依赖、配置目标平台！
+
+启动后，智能向导会：
+- 🔍 **环境检查**: 检查 Python 版本和虚拟环境
+- 📦 **依赖管理**: 自动安装缺失的 uv、uvx、pip 等工具
+- 🎯 **平台选择**: 支持 Claude、Cursor、VSCode、传统 MCP 服务器
+- ⚙️ **自动配置**: 根据选择自动配置相应平台的 MCP 设置
+- ✅ **配置验证**: 验证配置是否成功并提供使用指导
+- 🌐 **Web 服务器**: 自动启动 Serena Web 服务器并打开 Dashboard
+
+**预期输出：**
+```
+🚀 Serena CLI 智能 MCP 服务器启动向导
+==================================================
+🔍 第一步：环境检查...
+✅ Python 版本: 3.13.2
+✅ 虚拟环境已激活
+
+🔍 第二步：依赖检查...
+✅ uv 已安装
+✅ uvx 已安装
+✅ pip 已安装
+✅ 所有依赖检查通过！
+
+🔍 第三步：选择目标平台...
+请选择目标 AI 编程工作台:
+1. ✅ Claude - 官方 Serena 集成 (推荐) ⭐
+2. ✅ Cursor - MCP 协议集成 💡
+3. ✅ Vscode - MCP 协议集成 💡
+4. ✅ Traditional - 标准 MCP 协议 💡
+
+请输入选择 (1-4): 1
+✅ 已选择: Claude
+
+🔧 第四步：配置 Claude...
+🤖 配置 Claude Desktop...
+✅ 成功添加到 Claude MCP!
+   Context: ide-assistant
+   Project: /Users/panda/Code/toy/AI/mylibs/panda-index-helper-mcp
+🔄 请重启 Claude 以使用新工具
+
+🔍 第五步：验证 Claude 配置...
+✅ Claude MCP 配置验证通过!
+
+📚 第六步：Claude 使用指导
+==================================================
+🤖 Claude Desktop 使用说明:
+1. 重启 Claude Desktop
+2. 在对话中使用: @mcp serena
+3. 享受 18 个 Serena 工具!
+
+🎉 配置完成！现在你可以开始使用 Serena 了!
+💡 如有问题，请查看文档或联系技术支持
+```
+
 ## 🎉 成功标志
 
 当你看到以下输出时，说明 Serena CLI 工作正常：
@@ -247,6 +308,7 @@ EOF
 ✅ **状态查询正常**：显示详细的项目状态信息  
 ✅ **配置管理可用**：能够编辑和查看配置文件  
 ✅ **错误处理完善**：提供清晰的错误信息和解决建议  
+✅ **智能 MCP 向导启动成功**：自动检测环境、安装依赖、配置平台  
 
 ## 🚀 下一步
 

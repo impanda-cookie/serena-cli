@@ -15,7 +15,7 @@ from .project_detector import ProjectDetector
 
 class ConfigManager:
     """Manage global and project-specific configurations."""
-    
+
     def __init__(self):
         """Initialize configuration manager."""
         # Global config directory
@@ -35,7 +35,7 @@ class ConfigManager:
         """Create default global configuration."""
         default_config = self._get_default_config()
         self._write_yaml(self.global_config_file, default_config)
-    
+
     def _get_default_config(self) -> Dict[str, Any]:
         """Get default global configuration."""
         return {
@@ -61,7 +61,7 @@ class ConfigManager:
                 "preferred_installer": "uv"
             }
         }
-    
+
     def get_config(self, config_type: str = "global", project_path: Optional[str] = None) -> Dict[str, Any]:
         """Get configuration."""
         if config_type == "global":
@@ -210,7 +210,7 @@ class ConfigManager:
                 return yaml.safe_load(f)
         except Exception:
             return None
-    
+
     def _write_yaml(self, file_path: Path, data: Dict[str, Any]):
         """Write YAML file."""
         try:

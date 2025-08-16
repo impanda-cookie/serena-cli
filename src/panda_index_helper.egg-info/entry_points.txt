@@ -1,2 +1,0 @@
-[console_scripts]
-panda-index-helper = panda_index_helper.cli:main

@@ -4,9 +4,9 @@ Serena CLI
 A powerful CLI tool for quickly enabling and configuring Serena coding agent tools in specified projects.
 """
 
-__version__ = "1.0.0"
-__author__ = "Your Name"
-__email__ = "your.email@example.com"
+__version__ = "1.0.12"
+__author__ = "Panda"
+__email__ = "panda@example.com"
 
 from .mcp_server import SerenaCLIMCPServer
 from .serena_manager import SerenaManager

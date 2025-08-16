@@ -19,7 +19,7 @@ class SerenaManager:
 
     def __init__(self):
         """Initialize the Serena manager."""
-        self.config_dir = Path.home() / ".panda-index-helper"
+        self.config_dir = Path.home() / ".serena-cli"
         self.config_dir.mkdir(exist_ok=True)
         
         # Check Python version compatibility
@@ -28,7 +28,7 @@ class SerenaManager:
         
         if not self.is_python_compatible:
             logger.warning(f"Python {self.python_version} may not be compatible with Serena. "
-                          f"Recommended: Python 3.10-3.12")
+                          f"Recommended: Python 3.10+")
 
     def _get_python_version(self) -> str:
         """Get current Python version."""
@@ -36,9 +36,9 @@ class SerenaManager:
 
     def _check_python_compatibility(self) -> bool:
         """Check if Python version is compatible with Serena."""
-        # Serena currently supports Python 3.10-3.12
+        # Serena currently supports Python 3.10+ (only Python 3.13+ may have issues)
         major, minor = sys.version_info.major, sys.version_info.minor
-        return major == 3 and minor in [10, 11, 12]
+        return major == 3 and minor >= 10
 
     async def enable_in_project(
         self, 
@@ -81,19 +81,15 @@ class SerenaManager:
             if not config_result["success"]:
                 return config_result
             
-            # Create project-specific configuration
-            project_config_result = self._create_project_config(project_path, context)
-            
             return {
                 "success": True,
                 "install_result": install_result,
                 "config_result": config_result,
-                "project_config_result": project_config_result,
                 "message": "Serena 项目配置完成",
                 "python_compatibility": {
                     "version": self.python_version,
                     "compatible": self.is_python_compatible,
-                    "warning": "Python 版本可能不兼容，建议使用 Python 3.10-3.12" if not self.is_python_compatible else None
+                    "warning": "Python 版本可能不兼容，建议使用 Python 3.10+" if not self.is_python_compatible else None
                 }
             }
             
@@ -101,12 +97,13 @@ class SerenaManager:
             logger.error(f"Error enabling Serena in project: {e}")
             return {"success": False, "error": str(e)}
 
-    def enable_serena(self, project_path: str) -> dict:
+    def enable_serena(self, project_path: str, force: bool = False) -> dict:
         """
         Enable Serena in the specified project (synchronous version).
         
         Args:
             project_path: Path to the project
+            force: Force enable even if Python version may not be compatible
             
         Returns:
             Dictionary with operation results
@@ -121,19 +118,21 @@ class SerenaManager:
                     "error": "Invalid project path or not a recognized project"
                 }
             
-            # Check Python compatibility
-            python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-            is_compatible = (
-                sys.version_info.major == 3 and 
-                sys.version_info.minor >= 10 and 
-                sys.version_info.minor <= 12
-            )
-            
-            if not is_compatible:
-                return {
-                    "success": False,
-                    "error": f"Python version {python_version} may not be compatible with Serena. Recommended: Python 3.10-3.12"
-                }
+            # Check Python compatibility (unless forced)
+            if not force:
+                python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+                is_compatible = (
+                    sys.version_info.major == 3 and 
+                    sys.version_info.minor >= 10
+                )
+                
+                if not is_compatible:
+                    return {
+                        "success": False,
+                        "error": f"Python version {python_version} may not be compatible with Serena. Recommended: Python 3.10+"
+                    }
+            else:
+                logger.warning("⚠️  Force mode: Skipping Python version compatibility check")
             
             # Check if Serena is already enabled
             if self._is_serena_enabled(project_path):
@@ -202,7 +201,7 @@ class SerenaManager:
             
             if serena_enabled and project_config:
                 status["installation_method"] = project_config.get("installation_method", "Unknown")
-                status["serena_context"] = project_config.get("context", "Not specified")
+                status["serena_context"] = project_config.get("serena_context", "Not specified")
             
             return status
             
@@ -232,7 +231,7 @@ class SerenaManager:
                 "python_compatibility": {
                     "version": self.python_version,
                     "compatible": self.is_python_compatible,
-                    "recommended": "3.10-3.12"
+                    "recommended": "3.10+"
                 }
             }
             
@@ -272,7 +271,7 @@ class SerenaManager:
 
     def _is_serena_enabled(self, project_path: Path) -> bool:
         """Check if Serena is enabled in the project."""
-        project_config = project_path / ".serena" / "project.yml"
+        project_config = project_path / ".serena-cli" / "project.yml"
         return project_config.exists()
 
     def _has_project_config(self, project_path: Path) -> bool:
@@ -387,7 +386,7 @@ class SerenaManager:
                 "error": "所有安装方法都失败了",
                 "suggestions": [
                     "检查网络连接",
-                    "确保 Python 版本兼容 (推荐 3.10-3.12)",
+                    "确保 Python 版本兼容 (推荐 3.10+)",
                     "尝试手动安装: pip install git+https://github.com/oraios/serena",
                     "检查是否有权限问题"
                 ]
@@ -400,12 +399,12 @@ class SerenaManager:
     def _generate_project_config(self, project_path: Path, context: str) -> Dict[str, Any]:
         """Generate project configuration."""
         try:
-            # Create .panda-index-helper directory
-            panda_dir = project_path / ".panda-index-helper"
-            panda_dir.mkdir(exist_ok=True)
+            # Create .serena-cli directory
+            serena_dir = project_path / ".serena-cli"
+            serena_dir.mkdir(exist_ok=True)
             
             # Create project configuration file
-            config_file = panda_dir / "project.yml"
+            config_file = serena_dir / "project.yml"
             config_content = self._get_project_config_template(project_path, context)
             
             with open(config_file, 'w', encoding='utf-8') as f:
@@ -417,33 +416,10 @@ class SerenaManager:
             logger.error(f"Error generating project config: {e}")
             return {"success": False, "error": str(e)}
 
-    def _create_project_config(self, project_path: Path, context: str) -> Dict[str, Any]:
-        """Create Serena project configuration."""
-        try:
-            # Create .serena directory
-            serena_dir = project_path / ".serena"
-            serena_dir.mkdir(exist_ok=True)
-            
-            # Create logs directory
-            logs_dir = serena_dir / "logs"
-            logs_dir.mkdir(exist_ok=True)
-            
-            # Create Serena project configuration
-            serena_config_file = serena_dir / "project.yml"
-            serena_config_content = self._get_serena_config_template(project_path, context)
-            
-            with open(serena_config_file, 'w', encoding='utf-8') as f:
-                f.write(serena_config_content)
-            
-            return {"success": True, "serena_config_file": str(serena_config_file)}
-            
-        except Exception as e:
-            logger.error(f"Error creating Serena config: {e}")
-            return {"success": False, "error": str(e)}
 
     def _get_project_config_template(self, project_path: Path, context: str) -> str:
         """Get project configuration template."""
-        return f"""# Panda Index Helper 项目配置
+        return f"""# Serena CLI 项目配置
 # 项目: {project_path.name}
 # 路径: {project_path}
 # 生成时间: {self._get_current_timestamp()}
@@ -477,55 +453,11 @@ project_settings:
 python_compatibility:
   version: "{self.python_version}"
   compatible: {str(self.is_python_compatible).lower()}
-  recommended: "3.10-3.12"
-  warning: "{'Python 版本可能不兼容 Serena，建议使用 Python 3.10-3.12' if not self.is_python_compatible else 'Python 版本兼容'}"
+  recommended: "3.10+"
+  warning: "{'Python 版本可能不兼容 Serena，建议使用 Python 3.10+' if not self.is_python_compatible else 'Python 版本兼容'}"
 """
 
-    def _get_serena_config_template(self, project_path: Path, context: str) -> str:
-        """Get Serena configuration template."""
-        return f"""# Serena 项目配置
-# 项目: {project_path.name}
-# 路径: {project_path}
-# 生成时间: {self._get_current_timestamp()}
-# Python 版本: {self.python_version}
 
-project_name: "{project_path.name}"
-context: "{context}"
-read_only: false
-
-# 工具配置
-included_tools:
-  - find_symbol
-  - read_file
-  - execute_shell_command
-  - list_dir
-  - get_symbols_overview
-  - search_for_pattern
-  - create_text_file
-  - replace_lines
-  - insert_at_line
-
-# 模式配置
-modes:
-  - default
-  - development
-
-# 日志配置
-logging:
-  level: INFO
-  file: "{project_path}/.serena/logs/serena.log"
-  dashboard: true
-  gui: false
-
-# 端口配置
-port: 24282
-
-# Python 兼容性信息
-python_compatibility:
-  version: "{self.python_version}"
-  compatible: {str(self.is_python_compatible).lower()}
-  recommended: "3.10-3.12"
-"""
 
     def _get_project_config(self, project_path: Path) -> Optional[Dict[str, Any]]:
         """Get existing project configuration."""
@@ -547,13 +479,12 @@ python_compatibility:
     def get_installation_guide(self) -> dict:
         """Get installation guide with compatibility information."""
         python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-        recommended_version = "3.10-3.12"
+        recommended_version = "3.10+"
         
         # Check if current Python version is compatible
         is_compatible = (
             sys.version_info.major == 3 and 
-            sys.version_info.minor >= 10 and 
-            sys.version_info.minor <= 12
+            sys.version_info.minor >= 10
         )
         
         guide = {
@@ -575,7 +506,7 @@ python_compatibility:
             # Add quick solutions
             guide["quick_solutions"] = [
                 {
-                    "title": "Use pyenv to install Python 3.10, 3.11 or 3.12",
+                    "title": "Use pyenv to install Python 3.10+",
                     "commands": [
                         "pyenv install 3.10.12",
                         "pyenv local 3.10.12",

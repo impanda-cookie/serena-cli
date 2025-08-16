@@ -1,1 +1,1 @@
-# Tests package for panda-index-helper
+# Tests package for serena-cli

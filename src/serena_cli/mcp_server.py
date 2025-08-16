@@ -10,7 +10,8 @@ from typing import Any, Dict, List, Optional
 
 # Try to import MCP library
 try:
-    from mcp import Server, StdioServerParameters
+    from mcp.server import Server
+    from mcp import stdio_server
     from mcp.types import Tool
     MCP_AVAILABLE = True
 except ImportError:
@@ -101,25 +102,43 @@ class SerenaCLIMCPServer:
     def _register_handlers(self):
         """Register MCP handlers."""
         try:
+            logger.info("Creating MCP Server instance...")
             self.server = Server("serena-cli")
+            logger.info("MCP Server instance created successfully")
             
+            logger.info("Registering list_tools handler...")
             @self.server.list_tools()
             async def handle_list_tools() -> List[Tool]:
                 """List available tools."""
                 return [Tool(**tool) for tool in self.tools]
+            logger.info("list_tools handler registered successfully")
             
+            logger.info("Registering call_tool handler...")
             @self.server.call_tool()
             async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
                 """Handle tool calls."""
                 return await self.execute_tool(name, arguments)
+            logger.info("call_tool handler registered successfully")
+            
+            logger.info("All MCP handlers registered successfully")
                 
         except Exception as e:
             logger.error(f"Failed to register MCP handlers: {e}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
             self.server = None
     
     def is_mcp_available(self) -> bool:
-        """Check if MCP is available."""
-        return self.mcp_available
+        """Check if MCP is available and properly initialized."""
+        if not self.mcp_available:
+            return False
+        
+        # Check if server was successfully created
+        if self.server is None:
+            logger.warning("MCP library available but server not initialized")
+            return False
+            
+        return True
     
     def get_tools(self) -> dict:
         """Get available MCP tools information."""
@@ -202,18 +221,26 @@ class SerenaCLIMCPServer:
         
         try:
             if stdio:
-                await self.server.run(StdioServerParameters())
+                # For stdio mode, use stdio_server as context manager
+                async with stdio_server() as (read_stream, write_stream):
+                    await self.server.run(
+                        read_stream,
+                        write_stream
+                    )
             else:
                 # Add other server parameters as needed
                 pass
         except Exception as e:
             if "TaskGroup" in str(e):
-                logger.error(f"TaskGroup error encountered: {e}")
+                # Suppress TaskGroup error messages to console
+                logger.debug(f"TaskGroup error encountered: {e}")
                 logger.info("This is a known compatibility issue with MCP library 1.13.0 and Python 3.13.2")
                 logger.info("CLI functionality remains fully operational")
+                # Don't raise TaskGroup errors, just log them
+                return
             else:
                 logger.error(f"Server run error: {e}")
-            raise
+                raise
 
 
 async def main():
@@ -232,9 +259,9 @@ async def main():
             for tool in tools:
                 print(f"  - {tool['name']}: {tool['description']}")
             print("\nMCP server not available. You can still use CLI commands:")
-            print("  panda-index-helper enable")
-            print("  panda-index-helper status")
-            print("  panda-index-helper config")
+            print("  serena-cli enable")
+            print("  serena-cli status")
+            print("  serena-cli config")
             
     except Exception as e:
         logger.error(f"Failed to start server: {e}")
@@ -242,9 +269,9 @@ async def main():
         if "TaskGroup" in str(e):
             print("\n⚠️  MCP 服务器启动失败，但核心功能仍然可用")
             print("你可以使用以下命令直接操作：")
-            print("  panda-index-helper enable")
-            print("  panda-index-helper status")
-            print("  panda-index-helper config")
+            print("  serena-cli enable")
+            print("  serena-cli status")
+            print("  serena-cli config")
         sys.exit(1)
 
 

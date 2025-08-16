@@ -1,7 +1,7 @@
 {
   "mcp.servers": {
-    "panda-index-helper": {
-      "command": "panda-index-helper",
+    "serena-cli": {
+      "command": "serena-cli",
       "args": ["start-mcp-server"],
       "env": {
         "PYTHONPATH": "${workspaceFolder}"

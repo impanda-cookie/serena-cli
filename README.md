@@ -80,12 +80,20 @@ pip install -e .
 
 ### MCP Integration
 ```bash
-# Start MCP server
+# Start intelligent MCP server wizard (Recommended)
 serena-cli start-mcp-server
 
 # Start simplified MCP server (avoids TaskGroup issues)
 serena-cli start-mcp-simple
 ```
+
+**🚀 New: Intelligent Startup Wizard!**
+The `start-mcp-server` command now launches an intelligent wizard that:
+- 🔍 Automatically checks your environment
+- 📦 Installs missing dependencies (uv, uvx, pip)
+- 🎯 Detects available AI programming workbenches
+- ⚙️ Configures MCP settings for your chosen platform
+- ✅ Verifies configuration and provides usage guidance
 
 ## ⚙️ Configuration
 

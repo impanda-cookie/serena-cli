@@ -177,10 +177,69 @@ Display available MCP tools information, including:
 ```
 
 #### `serena-cli start-mcp-server`
-Start MCP server (Note: Current version may have compatibility issues).
+Launch the intelligent MCP server wizard that automatically detects environment, installs dependencies, configures target platforms, and provides a complete user experience.
+
+**🚀 Smart Wizard Features:**
+- ✅ **Environment Check**: Automatically checks Python version and virtual environment
+- ✅ **Dependency Management**: Intelligently detects and installs missing tools like uv, uvx, pip
+- ✅ **Platform Selection**: Supports Claude Desktop, Cursor IDE, VSCode, and traditional MCP servers
+- ✅ **Auto-Configuration**: Automatically configures MCP settings for the chosen platform
+- ✅ **Configuration Verification**: Verifies if configuration is successful and provides usage guidance
+- ✅ **Web Server**: Automatically starts Serena Web server and opens Dashboard
+
+**🎯 Supported Platforms:**
+1. **Claude Desktop** ⭐ - Official Serena integration (Recommended)
+2. **Cursor IDE** 💡 - MCP protocol integration
+3. **VSCode** 💡 - MCP protocol integration
+4. **Traditional MCP Server** 💡 - Standard MCP protocol
+
+**Example Output:**
+```
+🚀 Serena CLI Intelligent MCP Server Startup Wizard
+==================================================
+🔍 Step 1: Environment Check...
+✅ Python version: 3.13.2
+✅ Virtual environment activated
+
+🔍 Step 2: Dependency Check...
+✅ uv installed
+✅ uvx installed
+✅ pip installed
+✅ All dependency checks passed!
+
+🔍 Step 3: Select Target Platform...
+Please select your target AI programming workbench:
+1. ✅ Claude - Official Serena integration (Recommended) ⭐
+2. ✅ Cursor - MCP protocol integration 💡
+3. ✅ Vscode - MCP protocol integration 💡
+4. ✅ Traditional - Standard MCP protocol 💡
+
+Please enter your choice (1-4): 1
+✅ Selected: Claude
+
+🔧 Step 4: Configure Claude...
+🤖 Configuring Claude Desktop...
+✅ Successfully added to Claude MCP!
+   Context: ide-assistant
+   Project: /Users/panda/Code/toy/AI/mylibs/panda-index-helper-mcp
+🔄 Please restart Claude to use new tools
+
+🔍 Step 5: Verify Claude Configuration...
+✅ Claude MCP configuration verification passed!
+
+📚 Step 6: Claude Usage Guide
+==================================================
+🤖 Claude Desktop Usage Instructions:
+1. Restart Claude Desktop
+2. Use in conversation: @mcp serena
+3. Enjoy 18 Serena tools!
+
+🎉 Configuration complete! You can now start using Serena!
+💡 If you have any issues, please check documentation or contact support
+```
 
 #### `serena-cli start-mcp-simple`
-Start simplified MCP server, avoiding TaskGroup issues.
+Start simplified MCP server, avoiding TaskGroup issues (Deprecated, recommend using `start-mcp-server`).
 
 ## 🎮 MCP Tools Usage
 

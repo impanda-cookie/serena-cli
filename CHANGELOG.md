@@ -2,10 +2,119 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.12] - 2025-01-XX
+
+### 🐛 Bug 修复
+- **修复 Claude MCP 配置冲突**: 当 serena MCP server 已存在时，自动移除旧配置并重新添加
+- **改进错误处理**: 为 "already exists" 错误提供详细的手动配置指导
+- **修复 MCP 服务器启动逻辑**: 改进智能向导失败后的回退机制，避免不必要的 MCP 服务器启动
+- **增强配置验证**: 在移除旧配置后添加延迟，确保配置更新完成
+
+### 🔧 技术改进
+- **优化异步执行**: 确保 `server.run()` 协程被正确等待，避免 RuntimeWarning
+- **改进向导流程**: 智能向导失败时提供更好的用户反馈和解决方案
+- **增强错误恢复**: 当配置失败时提供多种解决方案选择
+
+## [1.0.11] - 2025-01-XX
+
+## [1.0.11] - 2025-01-XX
+
+### ✨ 新功能
+- **智能 MCP 服务器启动向导**: 全新的交互式启动向导，自动检测和配置目标平台
+- **智能依赖管理**: 自动检测并安装缺失的 uv、uvx、pip 等工具
+- **多平台自动配置**: 支持 Claude Desktop、Cursor IDE、VSCode 和传统 MCP 服务器
+- **一键完成配置**: 用户只需选择目标平台，自动完成所有配置步骤
+- **自动启动 Serena Web 服务器**: 启动 MCP 服务器时自动启动 Serena Web 服务器
+- **自动打开 Web Dashboard**: 自动在浏览器中打开 http://127.0.0.1:24282/dashboard/index.html
+- **完整 Serena 体验**: 提供 25+ 语义代码编辑和分析工具
+- **优雅关闭**: 按 Ctrl+C 时同时关闭 MCP 服务器和 Serena Web 服务器
+
+### 🔧 技术改进
+- **环境检查**: 自动检查 Python 版本、虚拟环境状态
+- **依赖检查**: 智能检测缺失工具并提供多种安装方案
+- **平台检测**: 自动检测可用的 AI 编程工作台
+- **配置验证**: 验证配置是否成功并提供使用指导
+
+### 📚 文档更新
+- **中英文使用说明**: 更新了 `start-mcp-server` 命令的详细说明
+- **快速开始指南**: 添加了 MCP 服务器启动和 Web 界面使用说明
+- **功能特性说明**: 详细描述了新功能的特性和使用方法
+- **智能向导说明**: 新增智能启动向导的详细使用说明
+
+## [1.0.10] - 2025-01-XX
+
+### ✨ 新功能
+- **智能 MCP 服务器启动向导**: 全新的交互式启动向导，自动检测和配置目标平台
+- **智能依赖管理**: 自动检测并安装缺失的 uv、uvx、pip 等工具
+- **多平台自动配置**: 支持 Claude Desktop、Cursor IDE、VSCode 和传统 MCP 服务器
+- **一键完成配置**: 用户只需选择目标平台，自动完成所有配置步骤
+- **自动启动 Serena Web 服务器**: 启动 MCP 服务器时自动启动 Serena Web 服务器
+- **自动打开 Web Dashboard**: 自动在浏览器中打开 http://127.0.0.1:24282/dashboard/index.html
+- **完整 Serena 体验**: 提供 25+ 语义代码编辑和分析工具
+- **优雅关闭**: 按 Ctrl+C 时同时关闭 MCP 服务器和 Serena Web 服务器
+
+### 🔧 技术改进
+- **环境检查**: 自动检查 Python 版本、虚拟环境状态
+- **依赖检查**: 智能检测缺失工具并提供多种安装方案
+- **平台检测**: 自动检测可用的 AI 编程工作台
+- **配置验证**: 验证配置是否成功并提供使用指导
+
+### 📚 文档更新
+- **中英文使用说明**: 更新了 `start-mcp-server` 命令的详细说明
+- **快速开始指南**: 添加了 MCP 服务器启动和 Web 界面使用说明
+- **功能特性说明**: 详细描述了新功能的特性和使用方法
+- **智能向导说明**: 新增智能启动向导的详细使用说明
+
+## [1.0.9] - 2025-01-XX
+
+### Added
+- **Comprehensive MCP Server Verification**: Added built-in verification during MCP server startup
+- **MCP Tools Validation**: Verify that all MCP tools are available and functional
+- **Basic Functionality Testing**: Test project detection and Serena manager during startup
+- **Enhanced User Experience**: Clear success confirmation and usage guidance
+- **Automatic Serena Web Server**: Automatically start Serena Web server when starting MCP server
+- **Web Dashboard Auto-Open**: Automatically open http://127.0.0.1:24282/dashboard/index.html in browser
+- **Complete Serena Experience**: Provide 25+ semantic code editing and analysis tools
+
+### Fixed
+- **TaskGroup Error Handling**: Gracefully suppress TaskGroup error messages to console
+- **MCP Server Startup Verification**: Ensure MCP server is truly running with process verification
+- **User-Friendly Error Messages**: Replace technical errors with helpful guidance
+- **Graceful Shutdown**: Properly close both MCP server and Serena Web server on Ctrl+C
+
+### Changed
+- **Startup Process**: Enhanced startup process with comprehensive verification steps
+- **Error Suppression**: TaskGroup errors are now handled silently without user confusion
+- **Verification Flow**: Added multiple verification steps to prove Serena is working
+
+## [1.0.8] - 2025-01-XX
+
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 **Author**: Panda
+
+## [1.0.8] - 2025-01-27
+
+### Fixed
+- **Serena Enabled Status**: Fixed `_is_serena_enabled` method to correctly check for `.serena-cli/project.yml`
+- **Project Configuration Path**: Ensured `serena-cli status` accurately reflects Serena's enabled status based on the correct config file path
+- **Old Naming References**: Updated all remaining references from `panda-index-helper` to `serena-cli` in MCP server output
+- **Configuration Paths**: Fixed all configuration paths to use `.serena-cli` instead of `.panda-index-helper`
+
+### Added
+- **Force Enable Option**: Added `--force` option to `serena-cli enable` command to bypass Python version compatibility checks
+- **Enhanced Status Display**: Added Serena configuration directory path to status output for better visibility
+
+### Changed
+- **CLI Enable Behavior**: Modified `enable` command to provide a hint to use `--force` when compatibility check fails
+- **Python Version Support**: Extended Python compatibility from 3.10-3.12 to 3.10+ (only Python 3.13+ may have issues)
+- **MCP Server Output**: Updated all command references in MCP server error messages to use `serena-cli`
+
+### Technical Improvements
+- **Configuration Consistency**: Aligned Serena enabled check with the actual configuration file path
+- **User Control**: Provided an explicit option for users to override compatibility checks
+- **Better User Experience**: More informative status output with configuration directory information
 
 ## [Unreleased]
 
