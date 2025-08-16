@@ -34,7 +34,7 @@ serena-cli --help
 #### Unix/Linux/macOS
 ```bash
 # 下载项目
-git clone <repository-url>
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 
 # 一键安装
@@ -45,7 +45,7 @@ chmod +x install.sh
 #### Windows
 ```bash
 # 下载项目
-git clone <repository-url>
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 
 # 一键安装
@@ -55,7 +55,7 @@ install.bat
 #### 跨平台 Python 脚本
 ```bash
 # 下载项目
-git clone <repository-url>
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 
 # 一键安装
@@ -66,7 +66,7 @@ python install.py
 
 ```bash
 # 克隆项目
-git clone <repository-url>
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 
 # 创建虚拟环境
@@ -200,7 +200,7 @@ tail -f ~/.serena-cli/logs/serena-cli.log
 
 ```bash
 # 克隆项目
-git clone <repository-url>
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 
 # 创建虚拟环境
@@ -270,9 +270,9 @@ serena-cli/
 
 ## 📞 联系我们
 
-- 项目主页: [GitHub Repository](https://github.com/yourusername/serena-cli)
-- 问题反馈: [GitHub Issues](https://github.com/yourusername/serena-cli/issues)
-- 讨论交流: [GitHub Discussions](https://github.com/yourusername/serena-cli/discussions)
+- 项目主页: [GitHub Repository](https://github.com/impanda-cookie/serena-cli)
+- 问题反馈: [GitHub Issues](https://github.com/impanda-cookie/serena-cli/issues)
+- 讨论交流: [GitHub Discussions](https://github.com/impanda-cookie/serena-cli/discussions)
 
 ---
 

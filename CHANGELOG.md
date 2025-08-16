@@ -28,6 +28,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Python version compatibility warnings
 - Configuration path issues
 
+## [1.0.2] - 2025-01-27
+
+### Changed
+- Updated GitHub repository URLs to use correct repository: impanda-cookie/serena-cli
+- Fixed all documentation links to point to the correct GitHub repository
+- Enhanced installation instructions with correct repository URLs
+
+### Fixed
+- Corrected GitHub repository references in all documentation files
+- Updated installation scripts and manual installation instructions
+
 ## [1.0.1] - 2025-01-27
 
 ### Changed

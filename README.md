@@ -46,22 +46,22 @@ pip install serena-cli
 
 #### Unix/Linux/macOS
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/serena-cli/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/impanda-cookie/serena-cli/main/install.sh | bash
 ```
 
 #### Windows
 ```cmd
-curl -fsSL https://raw.githubusercontent.com/yourusername/serena-cli/main/install.bat | cmd
+curl -fsSL https://raw.githubusercontent.com/impanda-cookie/serena-cli/main/install.bat | cmd
 ```
 
 #### Python Script
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/serena-cli/main/install.py | python3
+curl -fsSL https://raw.githubusercontent.com/impanda-cookie/serena-cli/main/install.py | python3
 ```
 
 ### Manual Installation
 ```bash
-git clone https://github.com/yourusername/serena-cli.git
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -145,7 +145,7 @@ serena-cli check-env
 
 ### Environment Setup
 ```bash
-git clone https://github.com/yourusername/serena-cli.git
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 python3 -m venv venv
 source venv/bin/activate

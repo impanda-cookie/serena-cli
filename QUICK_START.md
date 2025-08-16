@@ -2,6 +2,21 @@
 
 [English](QUICK_START_EN.md) | [中文](QUICK_START.md)
 
+### 安装
+
+```bash
+# 克隆仓库
+git clone https://github.com/impanda-cookie/serena-cli.git
+cd serena-cli
+
+# 创建虚拟环境
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# 开发模式安装
+pip install -e .
+```
+
 ## ⚡ 5分钟快速上手
 
 ### 第一步：检查环境

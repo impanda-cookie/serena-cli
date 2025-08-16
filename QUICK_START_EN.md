@@ -2,6 +2,21 @@
 
 [English](QUICK_START_EN.md) | [中文](QUICK_START.md)
 
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/impanda-cookie/serena-cli.git
+cd serena-cli
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install in development mode
+pip install -e .
+```
+
 ## ⚡ 5-Minute Quick Start
 
 ### Step 1: Check Environment

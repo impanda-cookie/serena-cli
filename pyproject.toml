@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "serena-cli"
-version = "1.0.1"
+version = "1.0.2"
 description = "A powerful CLI tool for quickly enabling and configuring Serena coding agent tools in specified projects"
 readme = "README.md"
 license = {text = "MIT"}
@@ -44,11 +44,11 @@ dependencies = [
 serena-cli = "serena_cli.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/yourusername/serena-cli"
-Documentation = "https://github.com/yourusername/serena-cli#readme"
-Repository = "https://github.com/yourusername/serena-cli"
-Issues = "https://github.com/yourusername/serena-cli/issues"
-Changelog = "https://github.com/yourusername/serena-cli/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/impanda-cookie/serena-cli"
+Documentation = "https://github.com/impanda-cookie/serena-cli#readme"
+Repository = "https://github.com/impanda-cookie/serena-cli"
+Issues = "https://github.com/impanda-cookie/serena-cli/issues"
+Changelog = "https://github.com/impanda-cookie/serena-cli/blob/main/CHANGELOG.md"
 Download = "https://pypi.org/project/serena-cli/#files"
 
 [project.optional-dependencies]
