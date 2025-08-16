@@ -1,0 +1,16 @@
+LICENSE
+README.md
+pyproject.toml
+src/panda_index_helper/__init__.py
+src/panda_index_helper/cli.py
+src/panda_index_helper/config_manager.py
+src/panda_index_helper/mcp_server.py
+src/panda_index_helper/project_detector.py
+src/panda_index_helper/serena_manager.py
+src/panda_index_helper.egg-info/PKG-INFO
+src/panda_index_helper.egg-info/SOURCES.txt
+src/panda_index_helper.egg-info/dependency_links.txt
+src/panda_index_helper.egg-info/entry_points.txt
+src/panda_index_helper.egg-info/requires.txt
+src/panda_index_helper.egg-info/top_level.txt
+tests/test_project_detector.py

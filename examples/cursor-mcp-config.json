@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "panda-index-helper": {
+      "command": "panda-index-helper",
+      "args": ["start-mcp-server"]
+    }
+  }
+}
