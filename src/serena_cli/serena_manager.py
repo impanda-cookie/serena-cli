@@ -101,6 +101,70 @@ class SerenaManager:
             logger.error(f"Error enabling Serena in project: {e}")
             return {"success": False, "error": str(e)}
 
+    def enable_serena(self, project_path: str) -> dict:
+        """
+        Enable Serena in the specified project (synchronous version).
+        
+        Args:
+            project_path: Path to the project
+            
+        Returns:
+            Dictionary with operation results
+        """
+        try:
+            project_path = Path(project_path).resolve()
+            
+            # Check if project is valid
+            if not self._is_valid_project(project_path):
+                return {
+                    "success": False,
+                    "error": "Invalid project path or not a recognized project"
+                }
+            
+            # Check Python compatibility
+            python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+            is_compatible = (
+                sys.version_info.major == 3 and 
+                sys.version_info.minor >= 10 and 
+                sys.version_info.minor <= 12
+            )
+            
+            if not is_compatible:
+                return {
+                    "success": False,
+                    "error": f"Python version {python_version} may not be compatible with Serena. Recommended: Python 3.10-3.12"
+                }
+            
+            # Check if Serena is already enabled
+            if self._is_serena_enabled(project_path):
+                return {
+                    "success": True,
+                    "message": "Serena is already enabled in this project",
+                    "project_path": str(project_path),
+                    "context": "ide-assistant"
+                }
+            
+            # Create project configuration
+            config = self._generate_project_config(project_path, "ide-assistant")
+            
+            if config:
+                return {
+                    "success": True,
+                    "message": "Serena enabled successfully",
+                    "project_path": str(project_path),
+                    "context": "ide-assistant",
+                    "config": config
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": "Failed to create project configuration"
+                }
+                
+        except Exception as e:
+            logger.error(f"Error enabling Serena: {e}")
+            return {"success": False, "error": str(e)}
+
     def get_status_sync(self, project_path: str) -> dict:
         """
         Get Serena status for the specified project (synchronous version).
@@ -483,12 +547,12 @@ python_compatibility:
     def get_installation_guide(self) -> dict:
         """Get installation guide with compatibility information."""
         python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-        recommended_version = "3.11-3.12"
+        recommended_version = "3.10-3.12"
         
         # Check if current Python version is compatible
         is_compatible = (
             sys.version_info.major == 3 and 
-            sys.version_info.minor >= 11 and 
+            sys.version_info.minor >= 10 and 
             sys.version_info.minor <= 12
         )
         
@@ -511,10 +575,10 @@ python_compatibility:
             # Add quick solutions
             guide["quick_solutions"] = [
                 {
-                    "title": "Use pyenv to install Python 3.11 or 3.12",
+                    "title": "Use pyenv to install Python 3.10, 3.11 or 3.12",
                     "commands": [
-                        "pyenv install 3.11.9",
-                        "pyenv local 3.11.9",
+                        "pyenv install 3.10.12",
+                        "pyenv local 3.10.12",
                         "python -m venv venv",
                         "source venv/bin/activate"
                     ]
@@ -522,14 +586,14 @@ python_compatibility:
                 {
                     "title": "Use conda to create a compatible environment",
                     "commands": [
-                        "conda create -n serena python=3.11",
+                        "conda create -n serena python=3.10",
                         "conda activate serena"
                     ]
                 },
                 {
-                    "title": "Use Docker with Python 3.11",
+                    "title": "Use Docker with Python 3.10",
                     "commands": [
-                        "docker run -it python:3.11-slim bash"
+                        "docker run -it python:3.10-slim bash"
                     ]
                 },
                 {
@@ -541,3 +605,23 @@ python_compatibility:
             ]
         
         return guide
+
+    def _is_valid_project(self, project_path: Path) -> bool:
+        """Check if the path is a valid project."""
+        # Check for common project indicators
+        indicators = [
+            ".git",
+            "package.json",
+            "pyproject.toml",
+            "setup.py",
+            "requirements.txt",
+            "README.md",
+            "src/",
+            "lib/",
+            "app/"
+        ]
+        
+        for indicator in indicators:
+            if (project_path / indicator).exists():
+                return True
+        return False

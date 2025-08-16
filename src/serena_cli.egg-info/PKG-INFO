@@ -1,15 +1,15 @@
 Metadata-Version: 2.4
 Name: serena-cli
-Version: 1.0.1
+Version: 1.0.4
 Summary: A powerful CLI tool for quickly enabling and configuring Serena coding agent tools in specified projects
 Author-email: Panda <panda@example.com>
 Maintainer-email: Panda <panda@example.com>
 License: MIT
-Project-URL: Homepage, https://github.com/yourusername/serena-cli
-Project-URL: Documentation, https://github.com/yourusername/serena-cli#readme
-Project-URL: Repository, https://github.com/yourusername/serena-cli
-Project-URL: Issues, https://github.com/yourusername/serena-cli/issues
-Project-URL: Changelog, https://github.com/yourusername/serena-cli/blob/main/CHANGELOG.md
+Project-URL: Homepage, https://github.com/impanda-cookie/serena-cli
+Project-URL: Documentation, https://github.com/impanda-cookie/serena-cli#readme
+Project-URL: Repository, https://github.com/impanda-cookie/serena-cli
+Project-URL: Issues, https://github.com/impanda-cookie/serena-cli/issues
+Project-URL: Changelog, https://github.com/impanda-cookie/serena-cli/blob/main/CHANGELOG.md
 Project-URL: Download, https://pypi.org/project/serena-cli/#files
 Keywords: serena,cli,mcp,coding-agent,ai-tools,project-management
 Classifier: Development Status :: 4 - Beta
@@ -100,22 +100,22 @@ pip install serena-cli
 
 #### Unix/Linux/macOS
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/serena-cli/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/impanda-cookie/serena-cli/main/install.sh | bash
 ```
 
 #### Windows
 ```cmd
-curl -fsSL https://raw.githubusercontent.com/yourusername/serena-cli/main/install.bat | cmd
+curl -fsSL https://raw.githubusercontent.com/impanda-cookie/serena-cli/main/install.bat | cmd
 ```
 
 #### Python Script
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/serena-cli/main/install.py | python3
+curl -fsSL https://raw.githubusercontent.com/impanda-cookie/serena-cli/main/install.py | python3
 ```
 
 ### Manual Installation
 ```bash
-git clone https://github.com/yourusername/serena-cli.git
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -199,7 +199,7 @@ serena-cli check-env
 
 ### Environment Setup
 ```bash
-git clone https://github.com/yourusername/serena-cli.git
+git clone https://github.com/impanda-cookie/serena-cli.git
 cd serena-cli
 python3 -m venv venv
 source venv/bin/activate

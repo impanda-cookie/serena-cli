@@ -48,11 +48,11 @@ def check_env(project):
     console.print(f"🐍 Python version: {python_version.major}.{python_version.minor}.{python_version.micro}")
     
     # Check Python compatibility
-    if python_version.major == 3 and python_version.minor >= 11 and python_version.minor <= 12:
+    if python_version.major == 3 and python_version.minor >= 10 and python_version.minor <= 12:
         console.print("✅ Python version is compatible with Serena")
     else:
         console.print("⚠️  Python version may not be compatible with Serena")
-        console.print("   Recommended: Python 3.11-3.12")
+        console.print("   Recommended: Python 3.10-3.12")
     
     # Check dependencies
     dependencies = ["mcp", "yaml", "click", "rich", "psutil"]
@@ -65,31 +65,31 @@ def check_env(project):
     
     # Serena compatibility assessment
     console.print("\n📊 Serena compatibility:")
-    if python_version.major == 3 and python_version.minor >= 11 and python_version.minor <= 12:
+    if python_version.major == 3 and python_version.minor >= 10 and python_version.minor <= 12:
         console.print("   Current version: {}.{}.{}".format(python_version.major, python_version.minor, python_version.micro))
-        console.print("   Recommended version: 3.11-3.12")
+        console.print("   Recommended version: 3.10-3.12")
         console.print("   Compatibility: ✅ Compatible")
     else:
         console.print("   Current version: {}.{}.{}".format(python_version.major, python_version.minor, python_version.micro))
-        console.print("   Recommended version: 3.11-3.12")
+        console.print("   Recommended version: 3.10-3.12")
         console.print("   Compatibility: ⚠️  May not be compatible")
         
         console.print("\n⚠️  Compatibility warning:")
         console.print("   - Current Python version {}.{}.{} may not be compatible with Serena".format(
             python_version.major, python_version.minor, python_version.micro))
-        console.print("   - Recommended: Python 3.11 or 3.12")
+        console.print("   - Recommended: Python 3.10, 3.11 or 3.12")
         console.print("   - If installation fails, consider downgrading Python version or wait for Serena update")
         
         # Provide quick solutions
         console.print("\n🚀 Quick solutions:")
-        console.print("   1. Use pyenv to install Python 3.11 or 3.12:")
-        console.print("      pyenv install 3.11.9")
-        console.print("      pyenv local 3.11.9")
+        console.print("   1. Use pyenv to install Python 3.10, 3.11 or 3.12:")
+        console.print("      pyenv install 3.10.12")
+        console.print("      pyenv local 3.10.12")
         console.print("   2. Use conda to create a compatible environment:")
-        console.print("      conda create -n serena python=3.11")
+        console.print("      conda create -n serena python=3.10")
         console.print("      conda activate serena")
-        console.print("   3. Use Docker with Python 3.11:")
-        console.print("      docker run -it python:3.11-slim bash")
+        console.print("   3. Use Docker with Python 3.10:")
+        console.print("      docker run -it python:3.10-slim bash")
         console.print("   4. Continue with current version (may have issues)")
     
     console.print("\n✅ Environment check completed!")
@@ -274,11 +274,11 @@ def _check_environment():
             console.print(f"❌ {dep}: Not installed")
     
     # Serena compatibility
-    if python_version.major == 3 and python_version.minor >= 11 and python_version.minor <= 12:
+    if python_version.major == 3 and python_version.minor >= 10 and python_version.minor <= 12:
         console.print("✅ Python version is compatible with Serena")
     else:
         console.print("⚠️  Python version may not be compatible with Serena")
-        console.print("   Recommended: Python 3.11-3.12")
+        console.print("   Recommended: Python 3.10-3.12")
         console.print("   Continuing with installation attempt...")
 
 def _get_status(project_path: str) -> dict:

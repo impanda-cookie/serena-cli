@@ -1,2 +1,2 @@
 [console_scripts]
-serena-cli = serena_cli.cli:main
+serena-cli = serena_cli.cli:cli

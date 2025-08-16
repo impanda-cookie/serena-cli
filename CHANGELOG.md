@@ -28,6 +28,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Python version compatibility warnings
 - Configuration path issues
 
+## [1.0.4] - 2025-01-27
+
+### Fixed
+- **Missing Method**: Added missing `enable_serena` method to `SerenaManager` class
+- **Python Compatibility**: Extended Python version support to include Python 3.10-3.12
+- **Project Validation**: Added `_is_valid_project` method for better project detection
+
+### Changed
+- **Python Version Range**: Updated recommended Python version from 3.11-3.12 to 3.10-3.12
+- **Quick Solutions**: Updated installation guides to include Python 3.10 options
+
+### Added
+- **Synchronous Enable Method**: Added `enable_serena` method for CLI usage
+- **Project Validation**: Added project validation logic to ensure valid project paths
+- **Better Error Handling**: Improved error messages for project validation and Python compatibility
+
+### Technical Improvements
+- **Method Consistency**: Ensured all CLI commands have corresponding methods in `SerenaManager`
+- **Python Support**: Extended compatibility to cover Python 3.10, 3.11, and 3.12
+- **Code Structure**: Better organization of project validation and Serena enabling logic
+
 ## [1.0.3] - 2025-01-27
 
 ### Changed
