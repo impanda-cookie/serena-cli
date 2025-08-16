@@ -121,8 +121,18 @@ class SerenaCLIMCPServer:
         """Check if MCP is available."""
         return self.mcp_available
     
+    def get_tools(self) -> dict:
+        """Get available MCP tools information."""
+        tools_dict = {}
+        for tool in self.tools:
+            tools_dict[tool["name"]] = {
+                "description": tool["description"],
+                "inputSchema": tool.get("inputSchema", {})
+            }
+        return tools_dict
+
     def get_tools_info(self) -> List[Dict[str, Any]]:
-        """Get information about available tools."""
+        """Get detailed tools information for CLI display."""
         return self.tools
     
     async def execute_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:

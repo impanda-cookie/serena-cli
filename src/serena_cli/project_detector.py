@@ -122,34 +122,47 @@ class ProjectDetector:
             logger.error(f"Error validating project {project_path}: {e}")
             return False
 
-    def get_project_info(self, project_path: str) -> Optional[Dict[str, Any]]:
-        """
-        Get detailed information about a project.
-        
-        Args:
-            project_path: Path to the project
-            
-        Returns:
-            Dictionary with project information
-        """
+    def get_project_info(self, project_path: str) -> Optional[dict]:
+        """Get comprehensive project information."""
         try:
             project_path = Path(project_path).resolve()
             
             if not self.validate_project(project_path):
                 return None
             
-            info = {
-                "path": str(project_path),
-                "name": project_path.name,
-                "type": self._detect_project_type(project_path),
-                "indicators": self._get_project_indicators(project_path),
-                "size": self._get_project_size(project_path),
-                "languages": self._detect_languages(project_path),
-                "has_serena": self._has_serena_config(project_path),
-                "has_panda_config": self._has_panda_config(project_path)
-            }
+            # Get project name
+            project_name = project_path.name
             
-            return info
+            # Detect project type
+            project_type = self._detect_project_type(project_path)
+            
+            # Get programming languages
+            languages = self._detect_languages(project_path)
+            
+            # Calculate project size
+            size_info = self._get_project_size(project_path)
+            
+            # Check Serena configuration
+            has_serena = self._has_serena_config(project_path)
+            
+            # Check if project is enabled
+            enabled = has_serena
+            
+            # Get config path if exists
+            config_path = None
+            if has_serena:
+                config_path = str(project_path / ".serena-cli" / "project.yml")
+            
+            return {
+                "name": project_name,
+                "path": str(project_path),
+                "type": project_type,
+                "languages": languages,
+                "size": size_info,
+                "has_serena": has_serena,
+                "enabled": enabled,
+                "config": config_path
+            }
             
         except Exception as e:
             logger.error(f"Error getting project info for {project_path}: {e}")

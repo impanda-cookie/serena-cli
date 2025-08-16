@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "serena-cli"
-version = "1.0.2"
+version = "1.0.3"
 description = "A powerful CLI tool for quickly enabling and configuring Serena coding agent tools in specified projects"
 readme = "README.md"
 license = {text = "MIT"}
@@ -41,7 +41,7 @@ dependencies = [
 ]
 
 [project.scripts]
-serena-cli = "serena_cli.cli:main"
+serena-cli = "serena_cli.cli:cli"
 
 [project.urls]
 Homepage = "https://github.com/impanda-cookie/serena-cli"

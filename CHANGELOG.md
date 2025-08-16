@@ -28,6 +28,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Python version compatibility warnings
 - Configuration path issues
 
+## [1.0.3] - 2025-01-27
+
+### Changed
+- **CLI Output Language**: Changed CLI commands output from Chinese to English priority
+- **Project Name Display**: Updated project information display to use English terminology
+- **Python Compatibility**: Enhanced Python version compatibility warnings with actionable quick solutions
+
+### Added
+- **Quick Solutions**: Added practical solutions for Python compatibility issues:
+  - pyenv installation guide for Python 3.11-3.12
+  - conda environment creation
+  - Docker container usage
+  - Continue with current version option
+- **Synchronous Status Method**: Added `get_status_sync` method to avoid async/await issues in CLI
+
+### Fixed
+- **CLI Entry Point**: Fixed CLI entry point configuration in pyproject.toml
+- **MCP Tools Display**: Added missing `get_tools` method to MCP server class
+- **Project Config Paths**: Updated configuration paths from `.panda-index-helper` to `.serena-cli`
+- **Status Command**: Fixed status command to work properly without async/await errors
+
+### Technical Improvements
+- **Error Handling**: Improved error handling and user feedback for compatibility issues
+- **Code Structure**: Better separation between async and sync methods
+- **User Experience**: More informative and actionable error messages
+
 ## [1.0.2] - 2025-01-27
 
 ### Changed

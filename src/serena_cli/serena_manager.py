@@ -101,6 +101,51 @@ class SerenaManager:
             logger.error(f"Error enabling Serena in project: {e}")
             return {"success": False, "error": str(e)}
 
+    def get_status_sync(self, project_path: str) -> dict:
+        """
+        Get Serena status for the specified project (synchronous version).
+        
+        Args:
+            project_path: Path to the project
+            
+        Returns:
+            Dictionary with status information
+        """
+        try:
+            project_path = Path(project_path).resolve()
+            
+            # Check if Serena is enabled
+            serena_enabled = self._is_serena_enabled(project_path)
+            
+            # Get project configuration
+            project_config = self._get_project_config(project_path)
+            
+            # Check if Serena is installed
+            serena_installed = self._is_serena_installed()
+            
+            # Get Python version
+            python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+            
+            status = {
+                "project_path": str(project_path),
+                "serena_enabled": serena_enabled,
+                "config_exists": bool(project_config),
+                "serena_installed": serena_installed,
+                "python_version": python_version,
+                "installation_method": "Not installed",
+                "serena_context": "Not configured"
+            }
+            
+            if serena_enabled and project_config:
+                status["installation_method"] = project_config.get("installation_method", "Unknown")
+                status["serena_context"] = project_config.get("context", "Not specified")
+            
+            return status
+            
+        except Exception as e:
+            logger.error(f"Error getting Serena status: {e}")
+            return {"error": str(e)}
+
     async def get_status(self, project_path: str) -> Dict[str, Any]:
         """
         Get Serena status for the specified project.
@@ -168,8 +213,8 @@ class SerenaManager:
 
     def _has_project_config(self, project_path: Path) -> bool:
         """Check if project has Serena configuration."""
-        panda_config = project_path / ".panda-index-helper" / "project.yml"
-        return panda_config.exists()
+        serena_config = project_path / ".serena-cli" / "project.yml"
+        return serena_config.exists()
 
     def _is_serena_installed(self) -> bool:
         """Check if Serena is installed."""
@@ -421,7 +466,7 @@ python_compatibility:
     def _get_project_config(self, project_path: Path) -> Optional[Dict[str, Any]]:
         """Get existing project configuration."""
         try:
-            config_file = project_path / ".panda-index-helper" / "project.yml"
+            config_file = project_path / ".serena-cli" / "project.yml"
             if config_file.exists():
                 import yaml
                 with open(config_file, 'r', encoding='utf-8') as f:
@@ -435,41 +480,64 @@ python_compatibility:
         from datetime import datetime
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    def get_installation_guide(self) -> Dict[str, Any]:
-        """Get installation guide based on current environment."""
+    def get_installation_guide(self) -> dict:
+        """Get installation guide with compatibility information."""
+        python_version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+        recommended_version = "3.11-3.12"
+        
+        # Check if current Python version is compatible
+        is_compatible = (
+            sys.version_info.major == 3 and 
+            sys.version_info.minor >= 11 and 
+            sys.version_info.minor <= 12
+        )
+        
         guide = {
-            "python_version": self.python_version,
-            "compatible": self.is_python_compatible,
-            "recommended_version": "3.11-3.12",
-            "current_platform": platform.system(),
-            "installation_methods": []
+            "python_version": python_version,
+            "recommended_version": recommended_version,
+            "compatible": is_compatible,
+            "warnings": [],
+            "quick_solutions": []
         }
         
-        if self._is_uv_available():
-            guide["installation_methods"].append({
-                "method": "uv",
-                "command": "uv pip install --from git+https://github.com/oraios/serena",
-                "description": "使用 uv 安装（推荐）"
-            })
-        
-        guide["installation_methods"].extend([
-            {
-                "method": "pip",
-                "command": "pip install git+https://github.com/oraios/serena",
-                "description": "使用 pip 安装"
-            },
-            {
-                "method": "pip_user",
-                "command": "pip install --user git+https://github.com/oraios/serena",
-                "description": "使用 pip 安装到用户目录"
-            }
-        ])
-        
-        if not self.is_python_compatible:
-            guide["warnings"] = [
-                f"当前 Python 版本 {self.python_version} 可能不兼容 Serena",
-                "建议使用 Python 3.11 或 3.12",
-                "如果安装失败，请考虑降级 Python 版本或等待 Serena 更新"
+        if not is_compatible:
+            guide["warnings"].append(
+                f"Current Python version {python_version} may not be compatible with Serena"
+            )
+            guide["warnings"].append(
+                f"Recommended: Python {recommended_version}"
+            )
+            
+            # Add quick solutions
+            guide["quick_solutions"] = [
+                {
+                    "title": "Use pyenv to install Python 3.11 or 3.12",
+                    "commands": [
+                        "pyenv install 3.11.9",
+                        "pyenv local 3.11.9",
+                        "python -m venv venv",
+                        "source venv/bin/activate"
+                    ]
+                },
+                {
+                    "title": "Use conda to create a compatible environment",
+                    "commands": [
+                        "conda create -n serena python=3.11",
+                        "conda activate serena"
+                    ]
+                },
+                {
+                    "title": "Use Docker with Python 3.11",
+                    "commands": [
+                        "docker run -it python:3.11-slim bash"
+                    ]
+                },
+                {
+                    "title": "Continue with current version (may have issues)",
+                    "commands": [
+                        "pip install serena-agent"
+                    ]
+                }
             ]
         
         return guide
