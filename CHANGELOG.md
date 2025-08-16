@@ -28,6 +28,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Python version compatibility warnings
 - Configuration path issues
 
+## [1.0.5] - 2025-01-27
+
+### Fixed
+- **Python Version References**: Updated all remaining Python version references from 3.11-3.12 to 3.10-3.12
+- **Compatibility Logic**: Fixed `_check_python_compatibility` method to include Python 3.10 support
+- **Template Files**: Updated configuration templates to show correct Python version recommendations
+
+### Changed
+- **Python Support Range**: Extended Python compatibility check to include Python 3.10, 3.11, and 3.12
+- **Error Messages**: All error messages now consistently show Python 3.10-3.12 as recommended range
+
+### Technical Improvements
+- **Consistent Versioning**: All Python version references now consistently show 3.10-3.12
+- **Better User Experience**: Users with Python 3.10 will no longer see incorrect compatibility warnings
+
 ## [1.0.4] - 2025-01-27
 
 ### Fixed

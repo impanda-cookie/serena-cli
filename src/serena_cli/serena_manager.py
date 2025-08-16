@@ -28,7 +28,7 @@ class SerenaManager:
         
         if not self.is_python_compatible:
             logger.warning(f"Python {self.python_version} may not be compatible with Serena. "
-                          f"Recommended: Python 3.11-3.12")
+                          f"Recommended: Python 3.10-3.12")
 
     def _get_python_version(self) -> str:
         """Get current Python version."""
@@ -36,9 +36,9 @@ class SerenaManager:
 
     def _check_python_compatibility(self) -> bool:
         """Check if Python version is compatible with Serena."""
-        # Serena currently supports Python 3.11-3.12
+        # Serena currently supports Python 3.10-3.12
         major, minor = sys.version_info.major, sys.version_info.minor
-        return major == 3 and minor in [11, 12]
+        return major == 3 and minor in [10, 11, 12]
 
     async def enable_in_project(
         self, 
@@ -93,7 +93,7 @@ class SerenaManager:
                 "python_compatibility": {
                     "version": self.python_version,
                     "compatible": self.is_python_compatible,
-                    "warning": "Python 版本可能不兼容，建议使用 Python 3.11-3.12" if not self.is_python_compatible else None
+                    "warning": "Python 版本可能不兼容，建议使用 Python 3.10-3.12" if not self.is_python_compatible else None
                 }
             }
             
@@ -232,7 +232,7 @@ class SerenaManager:
                 "python_compatibility": {
                     "version": self.python_version,
                     "compatible": self.is_python_compatible,
-                    "recommended": "3.11-3.12"
+                    "recommended": "3.10-3.12"
                 }
             }
             
@@ -387,7 +387,7 @@ class SerenaManager:
                 "error": "所有安装方法都失败了",
                 "suggestions": [
                     "检查网络连接",
-                    "确保 Python 版本兼容 (推荐 3.11-3.12)",
+                    "确保 Python 版本兼容 (推荐 3.10-3.12)",
                     "尝试手动安装: pip install git+https://github.com/oraios/serena",
                     "检查是否有权限问题"
                 ]
@@ -477,8 +477,8 @@ project_settings:
 python_compatibility:
   version: "{self.python_version}"
   compatible: {str(self.is_python_compatible).lower()}
-  recommended: "3.11-3.12"
-  warning: "{'Python 版本可能不兼容 Serena，建议使用 Python 3.11-3.12' if not self.is_python_compatible else 'Python 版本兼容'}"
+  recommended: "3.10-3.12"
+  warning: "{'Python 版本可能不兼容 Serena，建议使用 Python 3.10-3.12' if not self.is_python_compatible else 'Python 版本兼容'}"
 """
 
     def _get_serena_config_template(self, project_path: Path, context: str) -> str:
@@ -524,7 +524,7 @@ port: 24282
 python_compatibility:
   version: "{self.python_version}"
   compatible: {str(self.is_python_compatible).lower()}
-  recommended: "3.11-3.12"
+  recommended: "3.10-3.12"
 """
 
     def _get_project_config(self, project_path: Path) -> Optional[Dict[str, Any]]:
